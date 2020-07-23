@@ -4,7 +4,9 @@
 #include <fstream>
 
 using namespace std;
- 
+
+ofstream out_file, log_file;    // output and log files
+
 struct Node {
 
     private:
@@ -14,7 +16,6 @@ struct Node {
         bool ASKED;                     // true is request is sent
         Node* HOLDER;                   // next node to reach TOKEN
         queue <Node*> REQUEST_Q;        // queue to store node requests
-        ofstream out_file, log_file;    // output and log files
  
         /* Handles the use of TOKEN */
         void ASSIGN_PRIVILEGE() {
@@ -45,9 +46,7 @@ struct Node {
 
         /* Critical Section Code */
         void execute() {
-            out_file.open("output.txt", ofstream::app);
             out_file<<"Node "<<ID<<" has executed"<<endl;
-            out_file.close();
         }
  
     public:
@@ -57,7 +56,6 @@ struct Node {
             USING = false;
             ASKED = false;
             HOLDER = current_dir;
-            log_file.open("log.txt", fstream::app);
         }
 
         /* Message handling mechanism */
@@ -83,7 +81,6 @@ struct Node {
                 USING = false;
                 ASSIGN_PRIVILEGE();
                 MAKE_REQUEST();
-                log_file.close();
             }
         }
 };
