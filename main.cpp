@@ -2,9 +2,12 @@
 #include <fstream>
 #include <cstdio>
 #include <stdlib.h>
+#include <fstream>
 #include "Node.cpp"
 
 using namespace std;
+
+extern ofstream out_file, log_file;    // output and log files
 
 int main(int argc, char* argv[])
 {
@@ -17,10 +20,13 @@ int main(int argc, char* argv[])
     // local variables
     int i;
 
+	out_file.open("output.txt");
+	log_file.open("log.txt");
+
     // creating Nodes
     int nodeCount = atoi(argv[2]);
     Node* Node_Array[nodeCount];
-
+	
     // create tree structure from nodes
     Node_Array[0] = new Node(0, NULL);
     Node_Array[0]->HANDLE_EVENT("privilege", NULL);
@@ -32,17 +38,15 @@ int main(int argc, char* argv[])
     
     //input processing from text file
     ifstream file(argv[1]);             // pass file name as argument
-    ofstream log;                       // log file
-    log.open("log.txt", fstream::app);  // open log file in append mode
     int linebuffer;                     // input integer node number
 
     while(file>>linebuffer){
         /* input checking and error handling*/
         if(linebuffer >= 0 && linebuffer < nodeCount){
-
-            log<<"Node "<<linebuffer<<" wants to enter critical section"<<endl;
+            log_file<<"Node "<<linebuffer<<" wants to enter critical section"<<endl;
                 Node_Array[linebuffer]->HANDLE_EVENT("enter critical section", NULL);
         }
     }
-    log.close();
+	out_file.close();
+    log_file.close();
 }
