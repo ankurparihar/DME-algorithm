@@ -1,0 +1,74 @@
+@media (max-width:499px) {
+	#demo_page {
+		max-width: 100vw;
+		overflow: hidden
+	}
+}
+
+#demo_page .demo_page-head {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	width: 100%;
+	border-bottom: 3px double;
+	height: 80px
+}
+
+#demo_page .demo_page-back,
+#demo_page .demo_page-info {
+	background-color: transparent;
+	box-shadow: none
+}
+
+#demo_page .demo_page-head svg {
+	cursor: pointer
+}
+
+#demo_page .demo_page-head svg:hover {
+	color: #f3c669
+}
+
+#demo_page button {
+	outline: none
+}
+
+#demo_page .demo_page-title {
+	width: 100%;
+	font-size: 28px;
+	text-align: center;
+	margin: auto
+}
+
+@media (max-width:600px) {
+	#demo_page .demo_page-title {
+		font-size: 4.5vw
+	}
+}
+
+.dme_graph {
+	width: 100vw;
+	display: flex;
+	justify-content: center
+}
+
+.dme_graph canvas {
+	margin: 20px auto
+}
+
+@media (max-width: 799px) {
+	.dme_graph canvas {
+		transform: scale(0.8)
+	}
+}
+
+@media (max-width: 599px) {
+	.dme_graph canvas {
+		transform: scale(0.6);
+		margin: 0
+	}
+}
+
+@media (max-width: 399px) {
+	.dme_graph canvas {
+		transform: scale(0.5)
+	}
+}
