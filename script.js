@@ -44,7 +44,7 @@ const raymond__data = {
 	nodes: [],
 	arrowLen: 75,
 	nodeRadius: 25,
-	topology: 'straight line',
+	topology: 'radiating star',
 	updateTopology: () => {
 		class node {
 			constructor(i, t, x, y) {
@@ -58,6 +58,7 @@ const raymond__data = {
 				this.using = false          // true if executing critical section
 				this.asked = false          // true if request is sent
 				this.queue = []             // queue to store node requests
+				this.checkpoint = undefined // state variable used for simulation purpose (not related to algorithm)
 				// Handles the use of TOKEN
 				this.assign_privilege = () => {
 					if (this.holder == this && this.using == false && this.queue.length > 0) {
@@ -71,8 +72,8 @@ const raymond__data = {
 							this.execute()
 						}
 						else {
-							console.log('node ' + this.data + ' passed the privilege to node ' + this.holder.data)
-							this.holder.handle_event('privilege')
+							this.checkpoint = 1
+							raymond__data.reverseArrowAnimation(this, this.holder, '#f00ff0')
 						}
 					}
 				}
@@ -86,10 +87,8 @@ const raymond__data = {
 				// Critical Section Code
 				this.execute = () => {
 					console.log('node ' + this.data + ' has entered critical section')
-					setTimeout(() => {
-						console.log('node ' + this.data + ' has executed')
-						this.handle_event('exit critical section')
-					}, 5000)
+					this.checkpoint = 2
+					raymond__data.nodeExecuteAnimation(this)
 				}
 				// Message handling mechanism
 				this.handle_event = async (event, sender) => {
@@ -116,6 +115,16 @@ const raymond__data = {
 						this.using = false
 						this.assign_privilege()
 						this.make_request()
+					}
+				}
+				this.proceed = () => {
+					if (this.checkpoint === 1) {
+						console.log('node ' + this.data + ' passed the privilege to node ' + this.holder.data)
+						this.holder.handle_event('privilege')
+					}
+					else if (this.checkpoint === 2) {
+						console.log('node ' + this.data + ' has executed')
+						this.handle_event('exit critical section')
 					}
 				}
 			}
@@ -294,6 +303,117 @@ const raymond__data = {
 		ctx.lineTo(to_x - headlen * Math.cos(angle + Math.PI / 6), to_y - headlen * Math.sin(angle + Math.PI / 6))
 		ctx.stroke()
 	},
+	reverseArrowAnimation: (to_node, from_node, color) => {
+		var m1 = raymond__data.nodeRadius
+		var m2 = m1 + raymond__data.arrowLen
+		var m12 = m1 + m2
+		const from_x = (m1 * to_node.cx + m2 * from_node.cx) / m12
+		const from_y = (m1 * to_node.cy + m2 * from_node.cy) / m12
+		const to_x = (m1 * from_node.cx + m2 * to_node.cx) / m12
+		const to_y = (m1 * from_node.cy + m2 * to_node.cy) / m12
+		const h = 10
+		const angle = Math.atan2(to_y - from_y, to_x - from_x)
+		const ctx = raymond__data.context
+		ctx.lineCap = 'round'
+		ctx.lineWidth = 1
+		var rad = 0
+		const midX = (from_x + to_x) / 2
+		const midY = (from_y + to_y) / 2
+		const halfLen = raymond__data.arrowLen / 2
+		var m1, m2
+		var m12 = raymond__data.arrowLen
+		var head_x, head_y
+		const cosTheta = Math.cos(angle)
+		const sinTheta = Math.sin(angle)
+		const cosPiBy6 = Math.cos(Math.PI / 6)
+		const sinPiBy6 = Math.cos(Math.PI / 6)
+		const hSinPiBy6 = h * sinPiBy6
+		const hCosPiBy6 = h * cosPiBy6
+		const tenSinTheta = 10 * sinTheta
+		const tenCosTheta = 10 * cosTheta
+		var k
+		function paint(r, paintColor) {
+			if (paintColor == 0) {
+				var saved = ctx.globalCompositeOperation
+				ctx.globalCompositeOperation = 'destination-out'
+				ctx.beginPath()
+				ctx.moveTo(from_x + tenSinTheta, from_y - tenCosTheta)
+				ctx.lineTo(from_x - tenSinTheta, from_y + tenCosTheta)
+				ctx.lineTo(to_x - tenSinTheta, to_y + tenCosTheta)
+				ctx.lineTo(to_x + tenSinTheta, to_y - tenCosTheta)
+				ctx.closePath()
+				ctx.fill()
+				ctx.globalCompositeOperation = saved
+			} else {
+				ctx.beginPath()
+				ctx.closePath()
+				ctx.strokeStyle = color
+				rad = r * Math.PI / 180
+				m1 = halfLen * (1 + Math.cos(rad))
+				m2 = m12 - m1
+				k = (halfLen - hCosPiBy6) * Math.cos(rad)
+				head_x = (m2 * from_x + m1 * to_x) / m12
+				head_y = (m2 * from_y + m1 * to_y) / m12
+				ctx.moveTo((m1 * from_x + m2 * to_x) / m12, (m1 * from_y + m2 * to_y) / m12)
+				ctx.lineTo(head_x, head_y)
+				ctx.lineTo(midX - hSinPiBy6 * sinTheta + k * cosTheta, midY + hSinPiBy6 * cosTheta + k * sinTheta)
+				ctx.moveTo(head_x, head_y)
+				ctx.lineTo(midX + hSinPiBy6 * sinTheta + k * cosTheta, midY - hSinPiBy6 * cosTheta + k * sinTheta)
+				ctx.stroke()
+			}
+			if (paintColor === 0) {
+				paint(r + 10, 1)
+			}
+			else {
+				if (r < 180) {
+					setTimeout(() => {
+						paint(r, 0)
+					}, 10)
+				}
+				else {
+					to_node.proceed()
+				}
+			}
+		}
+		paint(0, 0)
+	},
+	nodeExecuteAnimation: (node) => {
+		const ctx = raymond__data.context
+		const cx = node.cx
+		const cy = node.cy
+		const r = raymond__data.nodeRadius
+		function paint(a) {
+			ctx.fillStyle = '#ffffff'
+			ctx.strokeStyle = '#ffffff'
+			ctx.lineWidth = 2
+			ctx.beginPath()
+			ctx.arc(cx, cy, r, 0, Math.PI * 2)
+			// ctx.closePath()
+			ctx.stroke()
+			ctx.fillStyle = '#ddffdd'
+			ctx.strokeStyle = '#007700'
+			ctx.beginPath()
+			ctx.arc(cx, cy, r, 0, a * Math.PI / 180)
+			// ctx.closePath()
+			// ctx.fill()
+			ctx.stroke()
+			ctx.textAlign = 'center'
+			ctx.font = '20px Arial'
+			ctx.textBaseline = 'middle'
+			ctx.lineWidth = 1
+			ctx.fillStyle = '#ffffff'
+			ctx.fillText(node.data, cx, cy)
+			if (a > 0) {
+				setTimeout(() => {
+					paint(a - 10)
+				}, 40)
+			} else {
+				raymond__data.drawNode(cx, cy, r, node.data, node.fgColor, node.bgColor)
+				node.proceed()
+			}
+		}
+		paint(360)
+	},
 	drawNode: (cx, cy, r, t, fgColor, bgColor) => {
 		const ctx = raymond__data.context
 		ctx.fillStyle = bgColor
@@ -314,11 +434,9 @@ const raymond__data = {
 	simulate: () => {
 		raymond__data.nodes[0].handle_event('privilege')
 		raymond__data.nodes.forEach(node => {
-			const t = 10 - node.id
 			setTimeout(() => {
 				node.handle_event('enter critical section')
-			}, t * 1000)
-			console.log(node.data, t)
+			}, Math.random() * 10000)
 		})
 	}
 }
