@@ -41,7 +41,7 @@ const raymond__data = {
 	nodes: [],
 	arrowLen: 75,
 	nodeRadius: 25,
-	topology: 'radiating star',
+	topology: 'paper example 2',
 	updateTopology: () => {
 		class node {
 			constructor(i, t, x, y) {
@@ -134,7 +134,7 @@ const raymond__data = {
 			}
 		}
 		if (raymond__data.topology === 'radiating star') {
-			raymond__data.canvas.width = 600
+			raymond__data.canvas.width = 650
 			raymond__data.canvas.height = 600
 			raymond__data.nodeRadius = 25
 			raymond__data.arrowLen = 75
@@ -145,7 +145,7 @@ const raymond__data = {
 			for (var i = 0; i < 17; ++i) {
 				nodes.push(new node(i, i))
 			}
-			var x = 300
+			var x = 325
 			var y = 300
 			const d = f * 0.707106781
 
@@ -227,33 +227,90 @@ const raymond__data = {
 			nodes[3].queueY = nodes[3].cy - r
 			nodes[3].queueGrowX = 0
 			nodes[3].queueGrowY = 1
-			nodes[4].queueX = nodes[4].cx + r +10
+			nodes[4].queueX = nodes[4].cx + r + 10
 			nodes[4].queueY = nodes[4].cy - 10
 			nodes[4].queueGrowX = 0
 			nodes[4].queueGrowY = 0
+			nodes[5].queueX = nodes[5].cx + r + 10
+			nodes[5].queueY = nodes[5].cy - 10
+			nodes[5].queueGrowX = 0
+			nodes[5].queueGrowY = 0
+			nodes[6].queueX = nodes[6].cx + r + 10
+			nodes[6].queueY = nodes[6].cy - 10
+			nodes[6].queueGrowX = 0
+			nodes[6].queueGrowY = 0
+			nodes[7].queueX = nodes[7].cx + r + 10
+			nodes[7].queueY = nodes[7].cy - 10
+			nodes[7].queueGrowX = 0
+			nodes[7].queueGrowY = 0
+			nodes[8].queueX = nodes[8].cx + r + 10
+			nodes[8].queueY = nodes[8].cy - 10
+			nodes[8].queueGrowX = 0
+			nodes[8].queueGrowY = 0
+			nodes[9].queueX = nodes[9].cx + r + 10
+			nodes[9].queueY = nodes[9].cy - 10
+			nodes[9].queueGrowX = 0
+			nodes[9].queueGrowY = 0
+			nodes[10].queueX = nodes[10].cx - r - 10
+			nodes[10].queueY = nodes[10].cy - 10
+			nodes[10].queueGrowX = 1
+			nodes[10].queueGrowY = 0
+			nodes[11].queueX = nodes[11].cx - r - 10
+			nodes[11].queueY = nodes[11].cy - 10
+			nodes[11].queueGrowX = 1
+			nodes[11].queueGrowY = 0
+			nodes[12].queueX = nodes[12].cx - r - 10
+			nodes[12].queueY = nodes[12].cy - 10
+			nodes[12].queueGrowX = 1
+			nodes[12].queueGrowY = 0
+			nodes[13].queueX = nodes[13].cx - r - 10
+			nodes[13].queueY = nodes[13].cy - 10
+			nodes[13].queueGrowX = 1
+			nodes[13].queueGrowY = 0
+			nodes[14].queueX = nodes[14].cx - r - 10
+			nodes[14].queueY = nodes[14].cy - 10
+			nodes[14].queueGrowX = 1
+			nodes[14].queueGrowY = 0
+			nodes[15].queueX = nodes[15].cx + r
+			nodes[15].queueY = nodes[15].cy + r
+			nodes[15].queueGrowX = 0
+			nodes[15].queueGrowY = 0
+			nodes[16].queueX = nodes[16].cx + r + 10
+			nodes[16].queueY = nodes[16].cy - 10
+			nodes[16].queueGrowX = 0
+			nodes[16].queueGrowY = 0
 
 			raymond__data.nodes = nodes
 		}
 		else if (raymond__data.topology === 'straight line') {
 			raymond__data.canvas.width = 600
-			raymond__data.canvas.height = 100
+			raymond__data.canvas.height = 150
 			raymond__data.nodeRadius = 25
 			raymond__data.arrowLen = 50
 			const nodes = []
-			var x = 25
+			const r = raymond__data.nodeRadius
+			var x = 30
 			var y = 60
 			const d = raymond__data.arrowLen + (2 * raymond__data.nodeRadius)
 			nodes.push(new node(0, 0, x, y))
+			nodes[0].queueX = x + r
+			nodes[0].queueY = y + r
+			nodes[0].queueGrowX = 0
+			nodes[0].queueGrowY = 0
 			for (var i = 1; i < 6; ++i) {
 				x += d
 				nodes.push(new node(i, i, x, y))
 				nodes[i].holder = nodes[i - 1]
+				nodes[i].queueX = x + r
+				nodes[i].queueY = y + r
+				nodes[i].queueGrowX = 0
+				nodes[i].queueGrowY = 0
 			}
 			raymond__data.nodes = nodes
 		}
 		else if (raymond__data.topology === 'paper example 1') {
 			raymond__data.canvas.width = 600
-			raymond__data.canvas.height = 200
+			raymond__data.canvas.height = 250
 			raymond__data.nodeRadius = 25
 			raymond__data.arrowLen = 75
 			const nodes = []
@@ -268,6 +325,31 @@ const raymond__data = {
 			nodes[3].holder = nodes[0]
 			nodes[4].holder = nodes[3]
 			nodes[5].holder = nodes[3]
+			// queues
+			nodes[0].queueX = 165
+			nodes[0].queueY = 40
+			nodes[0].queueGrowX = 1
+			nodes[0].queueGrowY = 0
+			nodes[1].queueX = 172.5
+			nodes[1].queueY = 148.25
+			nodes[1].queueGrowX = 0
+			nodes[1].queueGrowY = 0
+			nodes[2].queueX = 297.5
+			nodes[2].queueY = 148.25
+			nodes[2].queueGrowX = 0
+			nodes[2].queueGrowY = 0
+			nodes[3].queueX = 300
+			nodes[3].queueY = 75
+			nodes[3].queueGrowX = 1
+			nodes[3].queueGrowY = 0
+			nodes[4].queueX = 475
+			nodes[4].queueY = 75
+			nodes[4].queueGrowX = 0
+			nodes[4].queueGrowY = 0
+			nodes[5].queueX = 422.5
+			nodes[5].queueY = 148.25
+			nodes[5].queueGrowX = 0
+			nodes[5].queueGrowY = 0
 			raymond__data.nodes = nodes
 		}
 		else if (raymond__data.topology === 'paper example 2') {
@@ -275,17 +357,18 @@ const raymond__data = {
 			raymond__data.canvas.height = 400
 			raymond__data.nodeRadius = 25
 			raymond__data.arrowLen = 75
+			const r = raymond__data.nodeRadius
 			const nodes = []
-			nodes.push(new node(0, 1, 300, 50))
-			nodes.push(new node(1, 2, 175, 50))
-			nodes.push(new node(2, 3, 300, 175))
-			nodes.push(new node(3, 4, 425, 50))
-			nodes.push(new node(4, 5, 50, 50))
-			nodes.push(new node(5, 6, 112.5, 158.25))
-			nodes.push(new node(6, 7, 237.5, 283.25))
-			nodes.push(new node(7, 8, 362.5, 283.25))
-			nodes.push(new node(8, 9, 487.5, 158.25))
-			nodes.push(new node(9, 10, 550, 50))
+			nodes.push(new node(0, 1, 300, 75))
+			nodes.push(new node(1, 2, 175, 75))
+			nodes.push(new node(2, 3, 300, 200))
+			nodes.push(new node(3, 4, 425, 75))
+			nodes.push(new node(4, 5, 50, 75))
+			nodes.push(new node(5, 6, 112.5, 183.25))
+			nodes.push(new node(6, 7, 237.5, 308.25))
+			nodes.push(new node(7, 8, 362.5, 308.25))
+			nodes.push(new node(8, 9, 487.5, 183.25))
+			nodes.push(new node(9, 10, 550, 75))
 			nodes[1].holder = nodes[0]
 			nodes[2].holder = nodes[0]
 			nodes[3].holder = nodes[0]
@@ -295,6 +378,47 @@ const raymond__data = {
 			nodes[7].holder = nodes[2]
 			nodes[8].holder = nodes[3]
 			nodes[9].holder = nodes[3]
+			// queues
+			nodes[0].queueX = nodes[0].cx - r
+			nodes[0].queueY = nodes[0].cy - r
+			nodes[0].queueGrowX = 0
+			nodes[0].queueGrowY = 1
+			nodes[1].queueX = nodes[1].cx - r
+			nodes[1].queueY = nodes[1].cy - r
+			nodes[1].queueGrowX = 0
+			nodes[1].queueGrowY = 1
+			nodes[2].queueX = nodes[2].cx + r + 10
+			nodes[2].queueY = nodes[2].cy - 10
+			nodes[2].queueGrowX = 0
+			nodes[2].queueGrowY = 0
+			nodes[3].queueX = nodes[3].cx - r
+			nodes[3].queueY = nodes[3].cy - r
+			nodes[3].queueGrowX = 0
+			nodes[3].queueGrowY = 1
+			nodes[4].queueX = nodes[4].cx + r
+			nodes[4].queueY = nodes[4].cy + r
+			nodes[4].queueGrowX = 0
+			nodes[4].queueGrowY = 0
+			nodes[5].queueX = nodes[5].cx + r
+			nodes[5].queueY = nodes[5].cy + r
+			nodes[5].queueGrowX = 0
+			nodes[5].queueGrowY = 0
+			nodes[6].queueX = nodes[6].cx + r
+			nodes[6].queueY = nodes[6].cy + r
+			nodes[6].queueGrowX = 0
+			nodes[6].queueGrowY = 0
+			nodes[7].queueX = nodes[7].cx + r
+			nodes[7].queueY = nodes[7].cy + r
+			nodes[7].queueGrowX = 0
+			nodes[7].queueGrowY = 0
+			nodes[8].queueX = nodes[8].cx + r
+			nodes[8].queueY = nodes[8].cy + r
+			nodes[8].queueGrowX = 0
+			nodes[8].queueGrowY = 0
+			nodes[9].queueX = nodes[9].cx + r
+			nodes[9].queueY = nodes[9].cy + r
+			nodes[9].queueGrowX = 0
+			nodes[9].queueGrowY = 0
 			raymond__data.nodes = nodes
 		}
 		raymond__data.drawGraph()
@@ -390,6 +514,8 @@ const raymond__data = {
 		ctx.lineWidth = 1
 		ctx.strokeStyle = '#ffffff'
 		ctx.fillStyle = '#ffffff'
+		const n = queue.length
+		var ni
 		var x, y
 		var dx, dy
 		if (growX === 0) { dx = width }
@@ -398,7 +524,8 @@ const raymond__data = {
 		if (growY === 0) { dy = height }
 		else if (growY === 1) { dy = -height }
 		else { return }
-		queue.forEach(q => {
+		for (var i = 0; i < n; ++i) {
+			ni = (growX === 0) ? queue[i] : queue[n - 1 - i]
 			ctx.beginPath()
 			ctx.moveTo(x, y)
 			ctx.lineTo(x + dx, y)
@@ -410,9 +537,9 @@ const raymond__data = {
 			ctx.font = '12px Arial'
 			ctx.textBaseline = 'middle'
 			ctx.lineWidth = 1
-			ctx.fillText(q.data, x + dx / 2, y + dy / 2)
+			ctx.fillText(ni.data, x + dx / 2, y + dy / 2)
 			x += dx
-		})
+		}
 	},
 	reverseArrowAnimation: (to_node, from_node, color) => {
 		var m1 = raymond__data.nodeRadius
@@ -485,6 +612,7 @@ const raymond__data = {
 		var saved = ctx.globalCompositeOperation
 		const minPiBy2 = - Math.PI / 2
 		function paint(a) {
+			raymond__data.drawGraph()
 			ctx.globalCompositeOperation = 'destination-out'
 			ctx.lineWidth = 2
 			ctx.beginPath()
@@ -521,7 +649,7 @@ const raymond__data = {
 		raymond__data.nodes[0].handle_event('privilege')
 		raymond__data.nodes.forEach(node => {
 			setTimeout(() => {
-				node.handle_event('enter critical section')
+				node.workLoad = Math.random() * 3000
 			}, Math.random() * 10000)
 		})
 	}
