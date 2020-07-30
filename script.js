@@ -33,9 +33,6 @@ const raymond__data = {
 		raymond__data.updateTopology()
 		raymond__data.simulate()
 	},
-	/**	
-	 * @type {HTMLCanvasElement}
-	 */
 	canvas: undefined,
 	/**	
 	 * @type {CanvasRenderingContext2D}
@@ -59,6 +56,10 @@ const raymond__data = {
 				this.asked = false          // true if request is sent
 				this.queue = []             // queue to store node requests
 				this.checkpoint = undefined // state variable used for simulation purpose (not related to algorithm)
+				this.queueX = undefined     // queue coordinates
+				this.queueY = undefined     // queue coordinates
+				this.queueGrowX = undefined // queue orientation (0 = grow from start, 1 = grow from end)
+				this.queueGrowY = undefined // queue orientation (0 = grow from top, 1 = grow from bottom)
 				// Handles the use of TOKEN
 				this.assign_privilege = () => {
 					if (this.holder == this && this.using == false && this.queue.length > 0) {
@@ -94,6 +95,7 @@ const raymond__data = {
 				this.handle_event = async (event, sender) => {
 					if (event === 'enter critical section') {
 						console.log('node ' + this.data + ' wants to enter critical section')
+						this.fgColor = '#ff5622'
 						this.queue.push(this)
 						this.assign_privilege()
 						this.make_request()
@@ -112,7 +114,9 @@ const raymond__data = {
 					}
 					else if (event === 'exit critical section') {
 						console.log('node ' + this.data + ' exits critical section')
+						this.fgColor = '#ffffff'
 						this.using = false
+						raymond__data.drawGraph()
 						this.assign_privilege()
 						this.make_request()
 					}
@@ -135,7 +139,9 @@ const raymond__data = {
 			raymond__data.nodeRadius = 25
 			raymond__data.arrowLen = 75
 			const nodes = []
-			const f = raymond__data.arrowLen + (2 * raymond__data.nodeRadius)
+			const r = raymond__data.nodeRadius
+			const a = raymond__data.arrowLen
+			const f = a + (2 * r)
 			for (var i = 0; i < 17; ++i) {
 				nodes.push(new node(i, i))
 			}
@@ -203,6 +209,28 @@ const raymond__data = {
 			nodes[14].holder = nodes[4]
 			nodes[15].holder = nodes[4]
 			nodes[16].holder = nodes[4]
+
+			// queue orientation
+			nodes[0].queueX = nodes[0].cx + r
+			nodes[0].queueY = nodes[0].cy + r
+			nodes[0].queueGrowX = 0
+			nodes[0].queueGrowY = 0
+			nodes[1].queueX = nodes[1].cx - r
+			nodes[1].queueY = nodes[1].cy - r
+			nodes[1].queueGrowX = 1
+			nodes[1].queueGrowY = 1
+			nodes[2].queueX = nodes[2].cx + r
+			nodes[2].queueY = nodes[2].cy + r
+			nodes[2].queueGrowX = 0
+			nodes[2].queueGrowY = 0
+			nodes[3].queueX = nodes[3].cx + r
+			nodes[3].queueY = nodes[3].cy - r
+			nodes[3].queueGrowX = 0
+			nodes[3].queueGrowY = 1
+			nodes[4].queueX = nodes[4].cx + r +10
+			nodes[4].queueY = nodes[4].cy - 10
+			nodes[4].queueGrowX = 0
+			nodes[4].queueGrowY = 0
 
 			raymond__data.nodes = nodes
 		}
@@ -282,12 +310,47 @@ const raymond__data = {
 		const m2 = m1 + raymond__data.arrowLen
 		const m12 = m1 + m2
 		nodes.forEach(node => {
-			raymond__data.drawNode(node.cx, node.cy, raymond__data.nodeRadius, node.data, node.fgColor, node.bgColor)
+			raymond__data.drawNode(node)
 			const holder = node.holder
 			if (holder != undefined && holder != node) {
 				raymond__data.drawArrow((m1 * holder.cx + m2 * node.cx) / m12, (m1 * holder.cy + m2 * node.cy) / m12, (m1 * node.cx + m2 * holder.cx) / m12, (m1 * node.cy + m2 * holder.cy) / m12, '#ffffff')
 			}
+			raymond__data.drawQueue(node.queue, node.queueGrowX, node.queueGrowY, node.queueX, node.queueY)
 		})
+	},
+	drawNode: (node) => {
+		const cx = node.cx
+		const cy = node.cy
+		const t = node.data
+		const fgColor = node.fgColor
+		const bgColor = node.bgColor
+		const r = raymond__data.nodeRadius
+		const ctx = raymond__data.context
+		ctx.fillStyle = bgColor
+		ctx.strokeStyle = fgColor
+		ctx.lineWidth = 2
+		ctx.beginPath()
+		ctx.arc(cx, cy, r, 0, Math.PI * 2)
+		ctx.closePath()
+		ctx.fill()
+		ctx.stroke()
+		ctx.textAlign = 'center'
+		ctx.font = '20px Arial'
+		ctx.textBaseline = 'middle'
+		ctx.lineWidth = 1
+		ctx.fillStyle = fgColor
+		ctx.fillText(t, cx, cy)
+	},
+	deleteNode: (node) => {
+		const ctx = raymond__data.context
+		var saved = ctx.globalCompositeOperation
+		ctx.globalCompositeOperation = 'destination-out'
+		ctx.lineWidth = 2
+		ctx.beginPath()
+		ctx.arc(node.cx, node.cy, raymond__data.nodeRadius + 1, 0, Math.PI * 2)
+		ctx.fill()
+		ctx.stroke()
+		ctx.globalCompositeOperation = saved
 	},
 	drawArrow: (from_x, from_y, to_x, to_y, color) => {
 		const headlen = 10
@@ -296,12 +359,60 @@ const raymond__data = {
 		ctx.lineCap = 'round'
 		ctx.lineWidth = 1
 		ctx.strokeStyle = color
+		ctx.beginPath()
 		ctx.moveTo(from_x, from_y)
 		ctx.lineTo(to_x, to_y)
 		ctx.lineTo(to_x - headlen * Math.cos(angle - Math.PI / 6), to_y - headlen * Math.sin(angle - Math.PI / 6))
 		ctx.moveTo(to_x, to_y)
 		ctx.lineTo(to_x - headlen * Math.cos(angle + Math.PI / 6), to_y - headlen * Math.sin(angle + Math.PI / 6))
 		ctx.stroke()
+	},
+	deleteArrow: (from_x, from_y, to_x, to_y) => {
+		const ctx = raymond__data.context
+		const angle = Math.atan2(to_y - from_y, to_x - from_x)
+		const tenSinTheta = 10 * Math.sin(angle)
+		const tenCosTheta = 10 * Math.cos(angle)
+		var saved = ctx.globalCompositeOperation
+		ctx.globalCompositeOperation = 'destination-out'
+		ctx.beginPath()
+		ctx.moveTo(from_x + tenSinTheta, from_y - tenCosTheta)
+		ctx.lineTo(from_x - tenSinTheta, from_y + tenCosTheta)
+		ctx.lineTo(to_x - tenSinTheta, to_y + tenCosTheta)
+		ctx.lineTo(to_x + tenSinTheta, to_y - tenCosTheta)
+		ctx.closePath()
+		ctx.fill()
+		ctx.globalCompositeOperation = saved
+	},
+	drawQueue: (queue, growX, growY, x, y) => {
+		const ctx = raymond__data.context
+		const width = 16
+		const height = 20
+		ctx.lineWidth = 1
+		ctx.strokeStyle = '#ffffff'
+		ctx.fillStyle = '#ffffff'
+		var x, y
+		var dx, dy
+		if (growX === 0) { dx = width }
+		else if (growX === 1) { dx = -width }
+		else { return }
+		if (growY === 0) { dy = height }
+		else if (growY === 1) { dy = -height }
+		else { return }
+		queue.forEach(q => {
+			ctx.beginPath()
+			ctx.moveTo(x, y)
+			ctx.lineTo(x + dx, y)
+			ctx.lineTo(x + dx, y + dy)
+			ctx.lineTo(x, y + dy)
+			ctx.closePath()
+			ctx.stroke()
+			ctx.textAlign = 'center'
+			ctx.font = '12px Arial'
+			ctx.textBaseline = 'middle'
+			ctx.lineWidth = 1
+			ctx.fillText(q.data, x + dx / 2, y + dy / 2)
+			x += dx
+		})
 	},
 	reverseArrowAnimation: (to_node, from_node, color) => {
 		var m1 = raymond__data.nodeRadius
@@ -329,21 +440,10 @@ const raymond__data = {
 		const sinPiBy6 = Math.cos(Math.PI / 6)
 		const hSinPiBy6 = h * sinPiBy6
 		const hCosPiBy6 = h * cosPiBy6
-		const tenSinTheta = 10 * sinTheta
-		const tenCosTheta = 10 * cosTheta
 		var k
 		function paint(r, paintColor) {
 			if (paintColor == 0) {
-				var saved = ctx.globalCompositeOperation
-				ctx.globalCompositeOperation = 'destination-out'
-				ctx.beginPath()
-				ctx.moveTo(from_x + tenSinTheta, from_y - tenCosTheta)
-				ctx.lineTo(from_x - tenSinTheta, from_y + tenCosTheta)
-				ctx.lineTo(to_x - tenSinTheta, to_y + tenCosTheta)
-				ctx.lineTo(to_x + tenSinTheta, to_y - tenCosTheta)
-				ctx.closePath()
-				ctx.fill()
-				ctx.globalCompositeOperation = saved
+				raymond__data.deleteArrow(from_x, from_y, to_x, to_y)
 			} else {
 				ctx.beginPath()
 				ctx.closePath()
@@ -382,20 +482,24 @@ const raymond__data = {
 		const cx = node.cx
 		const cy = node.cy
 		const r = raymond__data.nodeRadius
+		var saved = ctx.globalCompositeOperation
+		const minPiBy2 = - Math.PI / 2
 		function paint(a) {
-			ctx.fillStyle = '#ffffff'
-			ctx.strokeStyle = '#ffffff'
+			ctx.globalCompositeOperation = 'destination-out'
 			ctx.lineWidth = 2
 			ctx.beginPath()
+			ctx.arc(cx, cy, r + 1, 0, Math.PI * 2)
+			ctx.fill()
+			ctx.stroke()
+			ctx.globalCompositeOperation = saved
+			ctx.beginPath()
 			ctx.arc(cx, cy, r, 0, Math.PI * 2)
-			// ctx.closePath()
+			ctx.strokeStyle = '#ffffff'
 			ctx.stroke()
 			ctx.fillStyle = '#ddffdd'
 			ctx.strokeStyle = '#007700'
 			ctx.beginPath()
-			ctx.arc(cx, cy, r, 0, a * Math.PI / 180)
-			// ctx.closePath()
-			// ctx.fill()
+			ctx.arc(cx, cy, r, minPiBy2, a * Math.PI / 180 + minPiBy2)
 			ctx.stroke()
 			ctx.textAlign = 'center'
 			ctx.font = '20px Arial'
@@ -408,28 +512,10 @@ const raymond__data = {
 					paint(a - 10)
 				}, 40)
 			} else {
-				raymond__data.drawNode(cx, cy, r, node.data, node.fgColor, node.bgColor)
 				node.proceed()
 			}
 		}
 		paint(360)
-	},
-	drawNode: (cx, cy, r, t, fgColor, bgColor) => {
-		const ctx = raymond__data.context
-		ctx.fillStyle = bgColor
-		ctx.strokeStyle = fgColor
-		ctx.lineWidth = 2
-		ctx.beginPath()
-		ctx.arc(cx, cy, r, 0, Math.PI * 2)
-		ctx.closePath()
-		ctx.fill()
-		ctx.stroke()
-		ctx.textAlign = 'center'
-		ctx.font = '20px Arial'
-		ctx.textBaseline = 'middle'
-		ctx.lineWidth = 1
-		ctx.fillStyle = fgColor
-		ctx.fillText(t, cx, cy)
 	},
 	simulate: () => {
 		raymond__data.nodes[0].handle_event('privilege')
