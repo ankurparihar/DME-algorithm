@@ -60,6 +60,7 @@ const raymond__data = {
 				this.queueY = undefined     // queue coordinates
 				this.queueGrowX = undefined // queue orientation (0 = grow from start, 1 = grow from end)
 				this.queueGrowY = undefined // queue orientation (0 = grow from top, 1 = grow from bottom)
+				this.workLoad = 0           // amount of time in millisecond node takes to execute
 				// Handles the use of TOKEN
 				this.assign_privilege = () => {
 					if (this.holder == this && this.using == false && this.queue.length > 0) {
@@ -609,6 +610,7 @@ const raymond__data = {
 		const cx = node.cx
 		const cy = node.cy
 		const r = raymond__data.nodeRadius
+		const timeout = node.workLoad / 36
 		var saved = ctx.globalCompositeOperation
 		const minPiBy2 = - Math.PI / 2
 		function paint(a) {
@@ -638,7 +640,7 @@ const raymond__data = {
 			if (a > 0) {
 				setTimeout(() => {
 					paint(a - 10)
-				}, 40)
+				}, timeout)
 			} else {
 				node.proceed()
 			}
@@ -650,6 +652,7 @@ const raymond__data = {
 		raymond__data.nodes.forEach(node => {
 			setTimeout(() => {
 				node.workLoad = Math.random() * 3000
+				node.handle_event('enter critical section')
 			}, Math.random() * 10000)
 		})
 	}
