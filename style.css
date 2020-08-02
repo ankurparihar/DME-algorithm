@@ -54,6 +54,51 @@
 	margin: 20px auto
 }
 
+.logs_div {
+	margin-top: 10px!important;
+	max-width: 600px;
+	height: 300px;
+	margin: auto;
+	background-color: #000000;
+	border-radius: 4px
+}
+
+.logs_div p {
+	margin: 0;
+	font-family: monospace
+}
+
+.logs_div span.workload {
+	color: #36fffc
+}
+
+.logs_div span.token {
+	color: #6a41b0
+}
+
+.logs_div span.enter_cs,
+.logs_div span.exit_cs {
+	color: #f77d20
+}
+
+.logs_div span.wants_cs {
+	color: #ff5622
+}
+
+.logs_div span.exec {
+	color: #007700
+}
+
+.logs_div span.request {
+	color: #aff720
+}
+
+@media (min-width:600px) {
+	.logs_div {
+		width: 500px
+	}
+}
+
 @media (max-width: 799px) {
 	.dme_graph canvas {
 		transform: scale(0.8)
@@ -65,10 +110,64 @@
 		transform: scale(0.6);
 		margin: 0
 	}
+	.logs_div {
+		width: 60vw
+	}
 }
 
 @media (max-width: 399px) {
 	.dme_graph canvas {
 		transform: scale(0.5)
 	}
+	.logs_div {
+		width: 90vw
+	}
+}
+
+.dme_controls {
+	margin-bottom: 20px
+}
+
+.dme_controls .btn {
+	display: block!important
+}
+
+.control_title {
+	text-align: center;
+	font-size: 18px;
+	margin: 0
+}
+
+.dme_choice button {
+	width: 160px;
+	height: 160px;
+	background-color: #262626;
+	margin: 20px;
+	border-radius: 4px;
+	box-shadow: 0 6px 6px -3px rgba(0, 0, 0, .2), 0 10px 14px 1px rgba(0, 0, 0, .14), 0 4px 18px 3px rgba(0, 0, 0, .12)!important
+}
+
+.dme_choice button.choice_selected {
+	background-image: linear-gradient(298deg, #00ffff, #ff00ff)
+}
+
+.choice-svg {
+	width: 130px;
+	height: 120px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto
+}
+
+.dme_controls .simplebar-track.horizontal {
+	display: none
+}
+
+.dme_controls .simplebar-content {
+	overflow-x: hidden
+}
+
+.dme_controls .simplebar-scrollbar {
+	width: 4px
 }

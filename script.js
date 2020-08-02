@@ -29,9 +29,75 @@ const raymond__data = {
 		})
 		raymond__data.canvas = document.getElementById('canvas')
 		raymond__data.context = raymond__data.canvas.getContext('2d')
+		// simulate button
+		const simulateBtn = document.getElementById('simulate_btn')
+		simulateBtn.addEventListener('click', (e) => {
+			showRippleEffect(e, simulateBtn)
+		})
+		simulateBtn.addEventListener('click', raymond__data.simulate)
+		// change topology buttons
+		const topo_rs_btn = document.querySelector('.choice-rs')
+		const topo_p1_btn = document.querySelector('.choice-p1')
+		const topo_p2_btn = document.querySelector('.choice-p2')
+		const topo_sl_btn = document.querySelector('.choice-sl')
+		topo_rs_btn.addEventListener('click', () => {
+			if (raymond__data.topology !== 'radiating star') {
+				if (raymond__data.pending === 0) {
+					topo_rs_btn.classList.add('choice_selected')
+					topo_p1_btn.classList.remove('choice_selected')
+					topo_p2_btn.classList.remove('choice_selected')
+					topo_sl_btn.classList.remove('choice_selected')
+					raymond__data.topology = 'radiating star'
+					raymond__data.updateTopology()
+				}
+			}
+		})
+		topo_p1_btn.addEventListener('click', () => {
+			if (raymond__data.topology !== 'paper example 1') {
+				if (raymond__data.pending === 0) {
+					topo_rs_btn.classList.remove('choice_selected')
+					topo_p1_btn.classList.add('choice_selected')
+					topo_p2_btn.classList.remove('choice_selected')
+					topo_sl_btn.classList.remove('choice_selected')
+					raymond__data.topology = 'paper example 1'
+					raymond__data.updateTopology()
+				}
+			}
+		})
+		topo_p2_btn.addEventListener('click', () => {
+			if (raymond__data.topology !== 'paper example 2') {
+				if (raymond__data.pending === 0) {
+					topo_rs_btn.classList.remove('choice_selected')
+					topo_p1_btn.classList.remove('choice_selected')
+					topo_p2_btn.classList.add('choice_selected')
+					topo_sl_btn.classList.remove('choice_selected')
+					raymond__data.topology = 'paper example 2'
+					raymond__data.updateTopology()
+				}
+			}
+		})
+		topo_sl_btn.addEventListener('click', () => {
+			if (raymond__data.topology !== 'straight line') {
+				if (raymond__data.pending === 0) {
+					topo_rs_btn.classList.remove('choice_selected')
+					topo_p1_btn.classList.remove('choice_selected')
+					topo_p2_btn.classList.remove('choice_selected')
+					topo_sl_btn.classList.add('choice_selected')
+					raymond__data.topology = 'straight line'
+					raymond__data.updateTopology()
+				}
+			}
+		})
+		// logs div simplebar
+		const log_simplebar = new SimpleBar(document.querySelector('.logs_div'))
+		raymond__data.logsDiv = log_simplebar.getContentElement()
+		raymond__data.scrollElement = log_simplebar.getScrollElement()
 		// Node class
 		raymond__data.updateTopology()
-		raymond__data.simulate()
+		// Ready
+		document.querySelectorAll('.demo_page-body button').forEach(btn => {
+			btn.classList.remove('btn--disabled')
+		})
 	},
 	canvas: undefined,
 	/**	
@@ -42,6 +108,9 @@ const raymond__data = {
 	arrowLen: 75,
 	nodeRadius: 25,
 	topology: 'paper example 2',
+	pending: 0,
+	logsDiv: undefined,
+	scrollElement: undefined,
 	updateTopology: () => {
 		class node {
 			constructor(i, t, x, y) {
@@ -88,33 +157,33 @@ const raymond__data = {
 				}
 				// Critical Section Code
 				this.execute = () => {
-					console.log('node ' + this.data + ' has entered critical section')
+					raymond__data.log('enter_cs', `node <span class="highlight">${this.data}</span> has entered critical section`)
 					this.checkpoint = 2
 					raymond__data.nodeExecuteAnimation(this)
 				}
 				// Message handling mechanism
 				this.handle_event = async (event, sender) => {
 					if (event === 'enter critical section') {
-						console.log('node ' + this.data + ' wants to enter critical section')
+						raymond__data.log('wants_cs', `node <span class="highlight">${this.data}</span> wants to enter critical section`)
 						this.fgColor = '#ff5622'
 						this.queue.push(this)
 						this.assign_privilege()
 						this.make_request()
 					}
 					else if (event === 'request') {
-						console.log('node ' + this.data + ' received request from node ' + sender.data)
+						raymond__data.log('request', `node <span class="highlight">${this.data}</span> received request from node <span class="highlight">${sender.data}</span>`)
 						this.queue.push(sender)
 						this.assign_privilege()
 						this.make_request()
 					}
 					else if (event === 'privilege') {
-						console.log('node ' + this.data + ' received the privilege')
+						raymond__data.log('token', `node <span class="highlight">${this.data}</span> received the privilege`)
 						this.holder = this
 						this.assign_privilege()
 						this.make_request()
 					}
 					else if (event === 'exit critical section') {
-						console.log('node ' + this.data + ' exits critical section')
+						raymond__data.log('exit_cs', `node <span class="highlight">${this.data}</span> exits critical section`)
 						this.fgColor = '#ffffff'
 						this.using = false
 						raymond__data.drawGraph()
@@ -124,11 +193,17 @@ const raymond__data = {
 				}
 				this.proceed = () => {
 					if (this.checkpoint === 1) {
-						console.log('node ' + this.data + ' passed the privilege to node ' + this.holder.data)
+						raymond__data.log('token', `node <span class="highlight">${this.data}</span> passed the privilege to node <span class="highlight">${this.holder.data}</span>`)
 						this.holder.handle_event('privilege')
 					}
 					else if (this.checkpoint === 2) {
-						console.log('node ' + this.data + ' has executed')
+						raymond__data.pending--
+						if (raymond__data.pending === 0) {
+							document.querySelectorAll('.demo_page-body button').forEach(btn => {
+								btn.classList.remove('btn--disabled')
+							})
+						}
+						raymond__data.log('exec', `node <span class="highlight">${this.data}</span> has executed`)
 						this.handle_event('exit critical section')
 					}
 				}
@@ -648,13 +723,68 @@ const raymond__data = {
 		paint(360)
 	},
 	simulate: () => {
+		const top = raymond__data.canvas.getBoundingClientRect().y
+		if (top < 60) {
+			const offSet = 60 - top
+			var loop = (offSet + 20) / 20
+			var id
+			id = setInterval(function () {
+				document.documentElement.scrollBy(0, -20) || document.body.scrollBy(0, -20)
+				loop--
+				if (loop <= 0) {
+					clearInterval(id)
+				}
+			}, 10);
+		}
+		document.querySelectorAll('.demo_page-body button').forEach(btn => {
+			btn.classList.add('btn--disabled')
+		})
+		raymond__data.logsDiv.innerHTML = ''
 		raymond__data.nodes[0].handle_event('privilege')
 		raymond__data.nodes.forEach(node => {
+			raymond__data.pending++
 			setTimeout(() => {
 				node.workLoad = Math.random() * 3000
+				raymond__data.log('workload', `node <span class="highlight">${node.data}</span> workload = ${Math.floor(node.workLoad)}ms`)
 				node.handle_event('enter critical section')
 			}, Math.random() * 10000)
 		})
+	},
+	log: (cls, msg) => {
+		var p = document.createElement('p')
+		var type
+		if (cls === 'workload') {
+			type = '[WORKLOAD]'
+		}
+		switch (cls) {
+			case 'workload':
+				type = 'WORKLOAD'
+				break;
+			case 'token':
+				type = 'TOKEN&nbsp;&nbsp;&nbsp;'
+				break;
+			case 'enter_cs':
+				type = 'ENTER CS'
+				break;
+			case 'exit_cs':
+				type = 'EXIT CS&nbsp;'
+				break;
+			case 'wants_cs':
+				type = 'WANTS CS'
+				break;
+			case 'exec':
+				type = 'EXECUTE&nbsp;'
+				break;
+			case 'request':
+				type = 'REQUEST&nbsp;'
+				break;
+			default:
+				type = '--------'
+				break;
+		}
+		p.innerHTML = `<span class="${cls}">[${type}]</span> ${msg}`
+		raymond__data.logsDiv.appendChild(p)
+		raymond__data.scrollElement.scrollTop = raymond__data.scrollElement.scrollHeight + 50
 	}
 }
 
