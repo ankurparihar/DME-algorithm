@@ -457,17 +457,17 @@ const raymond__data = {
 			// queues
 			nodes[0].queueX = nodes[0].cx - r
 			nodes[0].queueY = nodes[0].cy - r
-			nodes[0].queueGrowX = 0
+			nodes[0].queueGrowX = 1
 			nodes[0].queueGrowY = 1
 			nodes[1].queueX = nodes[1].cx - r
 			nodes[1].queueY = nodes[1].cy - r
-			nodes[1].queueGrowX = 0
+			nodes[1].queueGrowX = 1
 			nodes[1].queueGrowY = 1
 			nodes[2].queueX = nodes[2].cx + r + 10
 			nodes[2].queueY = nodes[2].cy - 10
 			nodes[2].queueGrowX = 0
 			nodes[2].queueGrowY = 0
-			nodes[3].queueX = nodes[3].cx - r
+			nodes[3].queueX = nodes[3].cx + r
 			nodes[3].queueY = nodes[3].cy - r
 			nodes[3].queueGrowX = 0
 			nodes[3].queueGrowY = 1
@@ -701,10 +701,14 @@ const raymond__data = {
 			ctx.arc(cx, cy, r, 0, Math.PI * 2)
 			ctx.strokeStyle = '#ffffff'
 			ctx.stroke()
-			ctx.fillStyle = '#ddffdd'
-			ctx.strokeStyle = '#007700'
+			ctx.fillStyle = '#007700'
+			ctx.strokeStyle = '#ddffdd'
 			ctx.beginPath()
+			ctx.moveTo(cx, cy)
+			ctx.lineTo(cx, cy-r)
 			ctx.arc(cx, cy, r, minPiBy2, a * Math.PI / 180 + minPiBy2)
+			ctx.lineTo(cx, cy)
+			ctx.fill()
 			ctx.stroke()
 			ctx.textAlign = 'center'
 			ctx.font = '20px Arial'
@@ -740,6 +744,7 @@ const raymond__data = {
 			btn.classList.add('btn--disabled')
 		})
 		raymond__data.logsDiv.innerHTML = ''
+		raymond__data.updateTopology()
 		raymond__data.nodes[0].handle_event('privilege')
 		raymond__data.nodes.forEach(node => {
 			raymond__data.pending++
