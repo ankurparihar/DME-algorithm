@@ -92,6 +92,18 @@ const raymond__data = {
 		const log_simplebar = new SimpleBar(document.querySelector('.logs_div'))
 		raymond__data.logsDiv = log_simplebar.getContentElement()
 		raymond__data.scrollElement = log_simplebar.getScrollElement()
+		// Logs show/hide button
+		const logToggleBtn = root.querySelector('.logs_title svg')
+		const logsDiv = root.querySelector('.logs_div')
+		logToggleBtn.addEventListener('click', () => {
+			if(logToggleBtn.classList.contains('log_closed')) {
+				logToggleBtn.classList.remove('log_closed')
+				logsDiv.classList.remove('log_closed')
+			}else {
+				logToggleBtn.classList.add('log_closed')
+				logsDiv.classList.add('log_closed')
+			}
+		})
 		// Node class
 		raymond__data.updateTopology()
 		// Ready
@@ -787,7 +799,7 @@ const raymond__data = {
 				type = '--------'
 				break;
 		}
-		p.innerHTML = `<span class="${cls}">[${type}]</span> ${msg}`
+		p.innerHTML = `&nbsp;<span class="${cls}">[${type}]</span> ${msg}`
 		raymond__data.logsDiv.appendChild(p)
 		raymond__data.scrollElement.scrollTop = raymond__data.scrollElement.scrollHeight + 50
 	}
