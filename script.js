@@ -665,7 +665,7 @@ const raymond__data = {
 				ctx.stroke()
 			}
 			if (paintColor === 0) {
-				paint(r + 10, 1)
+				paint(r + 5, 1)
 			}
 			else {
 				if (r < 180) {
@@ -685,7 +685,7 @@ const raymond__data = {
 		const cx = node.cx
 		const cy = node.cy
 		const r = raymond__data.nodeRadius
-		const timeout = node.workLoad / 36
+		const timeout = node.workLoad / 72
 		var saved = ctx.globalCompositeOperation
 		const minPiBy2 = - Math.PI / 2
 		function paint(a) {
@@ -718,7 +718,7 @@ const raymond__data = {
 			ctx.fillText(node.data, cx, cy)
 			if (a > 0) {
 				setTimeout(() => {
-					paint(a - 10)
+					paint(a - 5)
 				}, timeout)
 			} else {
 				node.proceed()
