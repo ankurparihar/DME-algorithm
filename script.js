@@ -93,7 +93,7 @@ const raymond__data = {
 		raymond__data.logsDiv = log_simplebar.getContentElement()
 		raymond__data.scrollElement = log_simplebar.getScrollElement()
 		// Logs show/hide button
-		const logToggleBtn = root.querySelector('.logs_title svg')
+		const logToggleBtn = root.querySelector('.logs_title')
 		const logsDiv = root.querySelector('.logs_div')
 		logToggleBtn.addEventListener('click', () => {
 			if(logToggleBtn.classList.contains('log_closed')) {
