@@ -277,10 +277,8 @@
 									<canvas id="canvas" width="1000" height="600">Your browser does not support HTML canvas</canvas>
 								</div>
 								<div class="dme_controls">
-									<!-- <div class="control_title">Control Panel and Status</div> -->
 									<div class="controls flex justify-center wrap">
 										<button type="button" id="simulate_btn" class="btn btn--large btn--disabled">Simulate</button>
-										<!-- <div class="token_holder">Token holder: </div> -->
 									</div>
 								</div>
 								<div class="dme_controls">
@@ -310,6 +308,52 @@
 											</div>
 											<div class="choice-title">Straight Line</div>
 										</button>
+									</div>
+								</div>
+								<div class="dme_controls">
+									<div class="control_title">Notation</div>
+									<div class="dme_symbols">
+										<div class="notation-block">
+											<svg viewBox="0 0 50 50" style="width:50px;height:50px">
+												<circle stroke-width="2" stroke="#ffffff" fill="#30303000" cx="25" cy="25" r="24"/>
+											</svg>
+											<p>Idle node (May have non-empty queue)</p>
+										</div>
+										<div class="notation-block">
+											<svg viewBox="0 0 50 50" style="width:50px;height:50px">
+												<circle stroke-width="2" stroke="#ff5622" fill="#30303000" cx="25" cy="25" r="24"/>
+											</svg>
+											<p>Node wants to enter critical section</p>
+										</div>
+										<div class="notation-block">
+											<svg class="node-exec" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50"><defs/>
+												<g>
+													<path fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 49 25 A 24 24 0 1 1 48.999988000001 24.976000003999985" stroke-width="2"/>
+													<path class="node-exec-path" fill="#007700" stroke="#ddffdd" paint-order="fill stroke markers" d="" stroke-width="2" stroke-dasharray=""/>
+												</g>
+											</svg>
+											<p>Node executing critical section</p>
+										</div>
+										<div class="notation-block">
+											<svg viewBox="0 0 50 50" style="width:50px;height:50px">
+												<path stroke-width="1" stroke="#ffffff" fill="#30303000" d="M 25 15 L 25 35 L 37 35 L 37 15 L 13 15 L 13 35 L 25 35 Z"/>
+												<text x="15" y="30" fill="#ffffff">1</text>
+												<text x="27" y="30" fill="#ffffff">2</text>
+											</svg>
+											<p>Queue (front=left, back=right)</p>
+										</div>
+										<div class="notation-block">
+											<svg viewBox="0 0 50 50" style="width:50px;height:50px">
+												<path stroke-width="2" stroke="#ffffff" fill="#30303000" d="M 0 25 L 49 25 L 40 15 M 49 25 L 40 35"/>
+											</svg>
+											<p>Holder (right node is holder of left node)</p>
+										</div>
+										<div class="notation-block notation-token-transfer">
+											<svg viewBox="0 0 50 50" style="width:50px;height:50px">
+												<path stroke-width="2" stroke="#f00ff0" fill="#30303000" d="M 0 25 L 49 25 L 40 15 M 49 25 L 40 35"></path>
+											</svg>
+											<p>Token transfter from holder to node</p>
+										</div>
 									</div>
 								</div>
 								<div class="dme_controls flex justify-center column">
