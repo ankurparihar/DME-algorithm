@@ -4,173 +4,193 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SVGs</title>
+	<style>
+		.svg_div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 800px;
+			height: 400px;
+			background-image: linear-gradient(138deg, #00ffff, #ff00ff)
+			/* background-image: linear-gradient(138deg, #00ffff, #ff0f00) */
+		}
+	</style>
 </head>
 <body style="background-color:#303030">
 	<!-- radiating star -->
-	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 650 600" style="width:130px;height:120px">
-		<style>
-			.circle, .line {
-				stroke: #ffffff;
-				paint-order: fill stroke markers;
-				stroke-dasharray: none;
-				stroke-linecap: round;
-
-			}
-			.circle {
-				fill: #ffffff;
-				stroke-miterlimit: 10;
-				stroke-width: 2;
-			}
-			.line {
-				fill: none;
-				stroke-width: 4;
-			}
-		</style>
-		<g>
-			<path class="circle" d=" M 350 300 A 25 25 0 1 1 349.99998750000105 299.97500000416665 Z"></path>
-			<path class="circle" d=" M 475 300 A 25 25 0 1 1 474.99998750000105 299.97500000416665 Z"></path>
-			<path class="circle" d=" M 350 175 A 25 25 0 1 1 349.99998750000105 174.97500000416665 Z"></path>
-			<path class="circle" d=" M 225 300 A 25 25 0 1 1 224.99998750000105 299.97500000416665 Z"></path>
-			<path class="circle" d=" M 350 425 A 25 25 0 1 1 349.99998750000105 424.97500000416665 Z"></path>
-			<path class="circle" d=" M 600 300 A 25 25 0 1 1 599.999987500001 299.97500000416665 Z"></path>
-			<path class="circle" d=" M 350 50 A 25 25 0 1 1 349.99998750000105 49.97500000416665 Z"></path>
-			<path class="circle" d=" M 100 300 A 25 25 0 1 1 99.99998750000104 299.97500000416665 Z"></path>
-			<path class="circle" d=" M 350 550 A 25 25 0 1 1 349.99998750000105 549.9750000041666 Z"></path>
-			<path class="circle" d=" M 563.388347625 388.388347625 A 25 25 0 1 1 563.388335125001 388.36334762916664 Z"></path>
-			<path class="circle" d=" M 563.388347625 211.611652375 A 25 25 0 1 1 563.388335125001 211.58665237916665 Z"></path>
-			<path class="circle" d=" M 438.388347625 86.61165237499999 A 25 25 0 1 1 438.38833512500105 86.58665237916664 Z"></path>
-			<path class="circle" d=" M 261.611652375 86.61165237499999 A 25 25 0 1 1 261.61163987500106 86.58665237916664 Z"></path>
-			<path class="circle" d=" M 136.611652375 211.611652375 A 25 25 0 1 1 136.61163987500103 211.58665237916665 Z"></path>
-			<path class="circle" d=" M 136.611652375 388.388347625 A 25 25 0 1 1 136.61163987500103 388.36334762916664 Z"></path>
-			<path class="circle" d=" M 261.611652375 513.388347625 A 25 25 0 1 1 261.61163987500106 513.3633476291667 Z"></path>
-			<path class="circle" d=" M 438.388347625 513.388347625 A 25 25 0 1 1 438.38833512500105 513.3633476291667 Z"></path>
-			<path class="line" d=" M 425 300 L 350 300"></path>
-			<path class="line" d=" M 325 200 L 325 275"></path>
-			<path class="line" d=" M 225 300 L 300 300"></path>
-			<path class="line" d=" M 325 400 L 325 325"></path>
-			<path class="line" d=" M 550 300 L 475 300"></path>
-			<path class="line" d=" M 100 300 L 175 300"></path>
-			<path class="line" d=" M 325 525 L 325 450"></path>
-			<path class="line" d=" M 325 75 L 325 150"></path>
-			<path class="line" d=" M 520.7106781 370.7106781 L 467.67766952500006 317.67766952500006"></path>
-			<path class="line" d=" M 520.7106781 229.2893219 L 467.67766952500006 282.322330475"></path>
-			<path class="line" d=" M 395.7106781 104.28932189999999 L 342.67766952500006 157.322330475"></path>
-			<path class="line" d=" M 254.2893219 104.28932189999999 L 307.322330475 157.322330475"></path>
-			<path class="line" d=" M 129.2893219 229.2893219 L 182.322330475 282.322330475"></path>
-			<path class="line" d=" M 129.2893219 370.7106781 L 182.322330475 317.67766952500006"></path>
-			<path class="line" d=" M 254.2893219 495.7106781 L 307.322330475 442.67766952500006"></path>
-			<path class="line" d=" M 395.7106781 495.7106781 L 342.67766952500006 442.67766952500006"></path>
-		</g>
-	</svg>
+	<div class="svg_div">
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 650 600" style="width:390px;height:360px">
+			<style>
+				.circle, .line {
+					stroke: #ffffff;
+					paint-order: fill stroke markers;
+					stroke-dasharray: none;
+					stroke-linecap: round;
+	
+				}
+				.circle {
+					fill: none;
+					/* stroke-miterlimit: 10; */
+					stroke-width: 4;
+				}
+				.circle.exec{
+					stroke: #ddffdd;
+					fill: #007700
+				}
+				.circle.want {
+					stroke: #ff5622
+				}
+				.line {
+					fill: none;
+					stroke-width: 4;
+				}
+			</style>
+			<g>
+				<path class="circle" d=" M 350 300 A 25 25 0 1 1 349.99998750000105 299.97500000416665 Z"></path>
+				<path class="circle" d=" M 475 300 A 25 25 0 1 1 474.99998750000105 299.97500000416665 Z"></path>
+				<path class="circle" d=" M 350 175 A 25 25 0 1 1 349.99998750000105 174.97500000416665 Z"></path>
+				<path class="circle want" d=" M 225 300 A 25 25 0 1 1 224.99998750000105 299.97500000416665 Z"></path>
+				<path class="circle" d=" M 350 425 A 25 25 0 1 1 349.99998750000105 424.97500000416665 Z"></path>
+				<path class="circle" d=" M 600 300 A 25 25 0 1 1 599.999987500001 299.97500000416665 Z"></path>
+				<path class="circle want" d=" M 350 50 A 25 25 0 1 1 349.99998750000105 49.97500000416665 Z"></path>
+				<path class="circle" d=" M 100 300 A 25 25 0 1 1 99.99998750000104 299.97500000416665 Z"></path>
+				<path class="circle" d=" M 350 550 A 25 25 0 1 1 349.99998750000105 549.9750000041666 Z"></path>
+				<path class="circle want" d=" M 563.388347625 388.388347625 A 25 25 0 1 1 563.388335125001 388.36334762916664 Z"></path>
+				<path class="circle" d=" M 563.388347625 211.611652375 A 25 25 0 1 1 563.388335125001 211.58665237916665 Z"></path>
+				<path class="circle" d=" M 438.388347625 86.61165237499999 A 25 25 0 1 1 438.38833512500105 86.58665237916664 Z"></path>
+				<path class="circle" d=" M 261.611652375 86.61165237499999 A 25 25 0 1 1 261.61163987500106 86.58665237916664 Z"></path>
+				<path class="circle" d=" M 136.611652375 211.611652375 A 25 25 0 1 1 136.61163987500103 211.58665237916665 Z"></path>
+				<path class="circle want" d=" M 136.611652375 388.388347625 A 25 25 0 1 1 136.61163987500103 388.36334762916664 Z"></path>
+				<path class="circle want" d=" M 261.611652375 513.388347625 A 25 25 0 1 1 261.61163987500106 513.3633476291667 Z"></path>
+				<path class="circle exec" d=" M 438.388347625 513.388347625 A 25 25 0 1 1 438.38833512500105 513.3633476291667 Z"></path>
+				<path class="line" d=" M 425 300 L 350 300"></path>
+				<path class="line" d=" M 325 200 L 325 275"></path>
+				<path class="line" d=" M 225 300 L 300 300"></path>
+				<path class="line" d=" M 325 400 L 325 325"></path>
+				<path class="line" d=" M 550 300 L 475 300"></path>
+				<path class="line" d=" M 100 300 L 175 300"></path>
+				<path class="line" d=" M 325 525 L 325 450"></path>
+				<path class="line" d=" M 325 75 L 325 150"></path>
+				<path class="line" d=" M 520.7106781 370.7106781 L 467.67766952500006 317.67766952500006"></path>
+				<path class="line" d=" M 520.7106781 229.2893219 L 467.67766952500006 282.322330475"></path>
+				<path class="line" d=" M 395.7106781 104.28932189999999 L 342.67766952500006 157.322330475"></path>
+				<path class="line" d=" M 254.2893219 104.28932189999999 L 307.322330475 157.322330475"></path>
+				<path class="line" d=" M 129.2893219 229.2893219 L 182.322330475 282.322330475"></path>
+				<path class="line" d=" M 129.2893219 370.7106781 L 182.322330475 317.67766952500006"></path>
+				<path class="line" d=" M 254.2893219 495.7106781 L 307.322330475 442.67766952500006"></path>
+				<path class="line" d=" M 395.7106781 495.7106781 L 342.67766952500006 442.67766952500006"></path>
+			</g>
+		</svg>
+	</div>
 	<!-- straight line -->
-	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 150" style="width:120px;height:30px">
-		<style>
-			.circle, .line {
-				stroke: #ffffff;
-				paint-order: fill stroke markers;
-				stroke-dasharray: none;
-				stroke-linecap: round;
-
-			}
-			.circle {
-				fill: #ffffff;
-				stroke-miterlimit: 10;
-				stroke-width: 2;
-			}
-			.line {
-				fill: none;
-				stroke-width: 4;
-			}
-		</style>
-		<g>
-			<path class="circle" d=" M 55 60 A 25 25 0 1 1 54.99998750000104 59.97500000416665 Z"></path>
-			<path class="circle" d=" M 155 60 A 25 25 0 1 1 154.99998750000105 59.97500000416665 Z"></path>
-			<path class="circle" d=" M 255 60 A 25 25 0 1 1 254.99998750000105 59.97500000416665 Z"></path>
-			<path class="circle" d=" M 355 60 A 25 25 0 1 1 354.99998750000105 59.97500000416665 Z"></path>
-			<path class="circle" d=" M 455 60 A 25 25 0 1 1 454.99998750000105 59.97500000416665 Z"></path>
-			<path class="circle" d=" M 555 60 A 25 25 0 1 1 554.999987500001 59.97500000416665 Z"></path>
-			<path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 105 60 L 55 60"></path>
-			<path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 205 60 L 155 60"></path>
-			<path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 305 60 L 255 60"></path>
-			<path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 405 60 L 355 60"></path>
-			<path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 505 60 L 455 60"></path>
-		</g>
-	</svg>
+	<!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 150" style="width:120px;height:30px"> -->
+		<!-- <style> -->
+			<!-- .circle, .line { -->
+				<!-- stroke: #ffffff; -->
+				<!-- paint-order: fill stroke markers; -->
+				<!-- stroke-dasharray: none; -->
+				<!-- stroke-linecap: round; -->
+<!--  -->
+			<!-- } -->
+			<!-- .circle { -->
+				<!-- fill: #ffffff; -->
+				<!-- stroke-miterlimit: 10; -->
+				<!-- stroke-width: 2; -->
+			<!-- } -->
+			<!-- .line { -->
+				<!-- fill: none; -->
+				<!-- stroke-width: 4; -->
+			<!-- } -->
+		<!-- </style> -->
+		<!-- <g> -->
+			<!-- <path class="circle" d=" M 55 60 A 25 25 0 1 1 54.99998750000104 59.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 155 60 A 25 25 0 1 1 154.99998750000105 59.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 255 60 A 25 25 0 1 1 254.99998750000105 59.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 355 60 A 25 25 0 1 1 354.99998750000105 59.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 455 60 A 25 25 0 1 1 454.99998750000105 59.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 555 60 A 25 25 0 1 1 554.999987500001 59.97500000416665 Z"></path> -->
+			<!-- <path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 105 60 L 55 60"></path> -->
+			<!-- <path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 205 60 L 155 60"></path> -->
+			<!-- <path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 305 60 L 255 60"></path> -->
+			<!-- <path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 405 60 L 355 60"></path> -->
+			<!-- <path class="line" fill="none" stroke="#ffffff" paint-order="fill stroke markers" d=" M 505 60 L 455 60"></path> -->
+		<!-- </g> -->
+	<!-- </svg> -->
 	<!-- paper example 1 -->
-	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 250" style="width:120px;height:50px">
-		<style>
-			.circle, .line {
-				stroke: #ffffff;
-				paint-order: fill stroke markers;
-				stroke-dasharray: none;
-				stroke-linecap: round;
-
-			}
-			.circle {
-				fill: #ffffff;
-				stroke-miterlimit: 10;
-				stroke-width: 2;
-			}
-			.line {
-				fill: none;
-				stroke-width: 4;
-			}
-		</style>
-		<g>
-			<path class="circle" d=" M 162.5 158.25 A 25 25 0 1 1 162.49998750000105 158.22500000416665 Z"></path>
-			<path class="circle" d=" M 287.5 158.25 A 25 25 0 1 1 287.49998750000105 158.22500000416665 Z"></path>
-			<path class="circle" d=" M 412.5 158.25 A 25 25 0 1 1 412.49998750000105 158.22500000416665 Z"></path>
-			<path class="circle" d=" M 225 50 A 25 25 0 1 1 224.99998750000105 49.97500000416665 Z"></path>
-			<path class="circle" d=" M 350 50 A 25 25 0 1 1 349.99998750000105 49.97500000416665 Z"></path>
-			<path class="circle" d=" M 475 50 A 25 25 0 1 1 474.99998750000105 49.97500000416665 Z"></path>
-			<path class="line" d=" M 150 136.6 L 187.5 71.65"></path>
-			<path class="line" d=" M 250 136.6 L 212.5 71.65"></path>
-			<path class="line" d=" M 375 136.6 L 337.5 71.65"></path>
-			<path class="line" d=" M 300 50 L 225 50"></path>
-			<path class="line" d=" M 425 50 L 350 50"></path>
-		</g>
-	</svg>
+	<!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 250" style="width:120px;height:50px"> -->
+		<!-- <style> -->
+			<!-- .circle, .line { -->
+				<!-- stroke: #ffffff; -->
+				<!-- paint-order: fill stroke markers; -->
+				<!-- stroke-dasharray: none; -->
+				<!-- stroke-linecap: round; -->
+<!--  -->
+			<!-- } -->
+			<!-- .circle { -->
+				<!-- fill: #ffffff; -->
+				<!-- stroke-miterlimit: 10; -->
+				<!-- stroke-width: 2; -->
+			<!-- } -->
+			<!-- .line { -->
+				<!-- fill: none; -->
+				<!-- stroke-width: 4; -->
+			<!-- } -->
+		<!-- </style> -->
+		<!-- <g> -->
+			<!-- <path class="circle" d=" M 162.5 158.25 A 25 25 0 1 1 162.49998750000105 158.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 287.5 158.25 A 25 25 0 1 1 287.49998750000105 158.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 412.5 158.25 A 25 25 0 1 1 412.49998750000105 158.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 225 50 A 25 25 0 1 1 224.99998750000105 49.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 350 50 A 25 25 0 1 1 349.99998750000105 49.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 475 50 A 25 25 0 1 1 474.99998750000105 49.97500000416665 Z"></path> -->
+			<!-- <path class="line" d=" M 150 136.6 L 187.5 71.65"></path> -->
+			<!-- <path class="line" d=" M 250 136.6 L 212.5 71.65"></path> -->
+			<!-- <path class="line" d=" M 375 136.6 L 337.5 71.65"></path> -->
+			<!-- <path class="line" d=" M 300 50 L 225 50"></path> -->
+			<!-- <path class="line" d=" M 425 50 L 350 50"></path> -->
+		<!-- </g> -->
+	<!-- </svg> -->
 	<!-- paper example 2 -->
-	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 400" style="width:120px;height:80px">
-		<style>
-			.circle, .line {
-				stroke: #ffffff;
-				paint-order: fill stroke markers;
-				stroke-dasharray: none;
-				stroke-linecap: round;
-
-			}
-			.circle {
-				fill: #ffffff;
-				stroke-miterlimit: 10;
-				stroke-width: 2;
-			}
-			.line {
-				fill: none;
-				stroke-width: 4;
-			}
-		</style>
-		<g>
-			<path class="circle" d=" M 325 75 A 25 25 0 1 1 324.99998750000105 74.97500000416665 Z"></path>
-			<path class="circle" d=" M 200 75 A 25 25 0 1 1 199.99998750000105 74.97500000416665 Z"></path>
-			<path class="circle" d=" M 325 200 A 25 25 0 1 1 324.99998750000105 199.97500000416665 Z"></path>
-			<path class="circle" d=" M 450 75 A 25 25 0 1 1 449.99998750000105 74.97500000416665 Z"></path>
-			<path class="circle" d=" M 75 75 A 25 25 0 1 1 74.99998750000104 74.97500000416665 Z"></path>
-			<path class="circle" d=" M 137.5 183.25 A 25 25 0 1 1 137.49998750000105 183.22500000416665 Z"></path>
-			<path class="circle" d=" M 262.5 308.25 A 25 25 0 1 1 262.49998750000105 308.22500000416665 Z"></path>
-			<path class="circle" d=" M 387.5 308.25 A 25 25 0 1 1 387.49998750000105 308.22500000416665 Z"></path>
-			<path class="circle" d=" M 512.5 183.25 A 25 25 0 1 1 512.499987500001 183.22500000416665 Z"></path>
-			<path class="circle" d=" M 575 75 A 25 25 0 1 1 574.999987500001 74.97500000416665 Z"></path>
-			<path class="line" d=" M 200 75 L 275 75"></path>
-			<path class="line" d=" M 300 175 L 300 100"></path>
-			<path class="line" d=" M 400 75 L 325 75"></path>
-			<path class="line" d=" M 75 75 L 150 75"></path>
-			<path class="line" d=" M 125 161.6 L 162.5 96.65"></path>
-			<path class="line" d=" M 250 286.6 L 287.5 221.65"></path>
-			<path class="line" d=" M 350 286.6 L 312.5 221.65"></path>
-			<path class="line" d=" M 475 161.6 L 437.5 96.65"></path>
-			<path class="line" d=" M 525 75 L 450 75"></path>
-		</g>
-	</svg>
+	<!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 400" style="width:120px;height:80px"> -->
+		<!-- <style> -->
+			<!-- .circle, .line { -->
+				<!-- stroke: #ffffff; -->
+				<!-- paint-order: fill stroke markers; -->
+				<!-- stroke-dasharray: none; -->
+				<!-- stroke-linecap: round; -->
+<!--  -->
+			<!-- } -->
+			<!-- .circle { -->
+				<!-- fill: #ffffff; -->
+				<!-- stroke-miterlimit: 10; -->
+				<!-- stroke-width: 2; -->
+			<!-- } -->
+			<!-- .line { -->
+				<!-- fill: none; -->
+				<!-- stroke-width: 4; -->
+			<!-- } -->
+		<!-- </style> -->
+		<!-- <g> -->
+			<!-- <path class="circle" d=" M 325 75 A 25 25 0 1 1 324.99998750000105 74.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 200 75 A 25 25 0 1 1 199.99998750000105 74.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 325 200 A 25 25 0 1 1 324.99998750000105 199.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 450 75 A 25 25 0 1 1 449.99998750000105 74.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 75 75 A 25 25 0 1 1 74.99998750000104 74.97500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 137.5 183.25 A 25 25 0 1 1 137.49998750000105 183.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 262.5 308.25 A 25 25 0 1 1 262.49998750000105 308.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 387.5 308.25 A 25 25 0 1 1 387.49998750000105 308.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 512.5 183.25 A 25 25 0 1 1 512.499987500001 183.22500000416665 Z"></path> -->
+			<!-- <path class="circle" d=" M 575 75 A 25 25 0 1 1 574.999987500001 74.97500000416665 Z"></path> -->
+			<!-- <path class="line" d=" M 200 75 L 275 75"></path> -->
+			<!-- <path class="line" d=" M 300 175 L 300 100"></path> -->
+			<!-- <path class="line" d=" M 400 75 L 325 75"></path> -->
+			<!-- <path class="line" d=" M 75 75 L 150 75"></path> -->
+			<!-- <path class="line" d=" M 125 161.6 L 162.5 96.65"></path> -->
+			<!-- <path class="line" d=" M 250 286.6 L 287.5 221.65"></path> -->
+			<!-- <path class="line" d=" M 350 286.6 L 312.5 221.65"></path> -->
+			<!-- <path class="line" d=" M 475 161.6 L 437.5 96.65"></path> -->
+			<!-- <path class="line" d=" M 525 75 L 450 75"></path> -->
+		<!-- </g> -->
+	<!-- </svg> -->
 </body>
 </html>
