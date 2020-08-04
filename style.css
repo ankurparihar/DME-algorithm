@@ -196,6 +196,9 @@
 .dme_controls .simplebar-scrollbar {
 	width: 4px
 }
+.dme_controls .simplebar-scrollbar::before {
+	background: #fc910f
+}
 
 .dme_symbols {
 	display: flex;
