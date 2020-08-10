@@ -31,3 +31,11 @@ The research paper: [Raymond's tree based algorithm.pdf](./papers/Raymond's%20tr
 
 
 :warning: C++ version is deprecated as it is single threaded. Javascript version uses asynchronous functions like `setTimeout` and `setInterval` and `async` function calls to achieve an exact simulation
+
+
+<hr>
+
+### PageSpeed score powered by [readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
+<p align="center">
+	<img align="center" src="./pagespeed.svg" width="600px">
+</p>
